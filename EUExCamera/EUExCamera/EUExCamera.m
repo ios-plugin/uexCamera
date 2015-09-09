@@ -131,7 +131,7 @@
 #pragma mark - 获得保存图片的名字 处理图片根据图片宽度 保存图片
 
 -(NSString *)getSavename:(NSString *)type {
-    NSString * wgtPath = [super absPath:@"wgt://"];
+    NSString * wgtPath = [super absPath:@"wgts://"];//暂时改为用wgts协议路径来保证一定是在Documents目录下
 	NSString * photoPath = [wgtPath stringByAppendingPathComponent:@"photo"];
  	NSFileManager * filemag = [NSFileManager defaultManager];
 	if (![filemag fileExistsAtPath:photoPath]) {
