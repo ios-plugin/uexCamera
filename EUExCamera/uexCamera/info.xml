@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <uexplugins>
     <plugin
-        uexName="uexCamera" version="3.0.1" build="1">
-        <info>1:使用新版Xcode重新编译,支持arm64</info>
+        uexName="uexCamera" version="3.0.2" build="2">
+        <info>2:修复在plugin目录下的子widget调用相机没有回调的BUG</info>
+        <build>1:使用新版Xcode重新编译,支持arm64</build>
         <build>0:照相机功能插件</build>
     </plugin>
 </uexplugins>
