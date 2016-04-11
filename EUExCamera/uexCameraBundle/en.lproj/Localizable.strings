@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  EUExCamera
+
+  Created by zywx on 16/4/8.
+  Copyright © 2016年 xll. All rights reserved.
+*/
+"noAddress"="No Address";
+"prompt"="Prompt";
+"noCamera"="Your device has no camera function";
+"cancel"="Cancel";
+"noFlash"="Your device has no flash function";
+"takePhotos"="TakePhoto";
+"back"="Back";
+"remake"="Remake";
+"submit"="Submit";
+"usePhoto"="Use";

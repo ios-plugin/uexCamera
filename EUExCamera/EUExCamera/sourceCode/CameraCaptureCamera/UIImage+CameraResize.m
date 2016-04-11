@@ -28,7 +28,6 @@
     
     // In iOS 5 the image is already correctly rotated. See Eran Sandler's
     // addition here: http://eran.sandler.co.il/2011/11/07/uiimage-in-ios-5-orientation-and-resize/
-    
     if([[[UIDevice currentDevice]systemVersion]floatValue] >= 5.0) {
         drawTransposed = YES;
     }

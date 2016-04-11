@@ -11,7 +11,7 @@
 #import "EUExBaseDefine.h"
 #import "CameraDefines.h"
 #import "CameraUtility.h"
-
+#import "CameraInternationalization.h"
 
 
 @interface CameraPostViewController (){
@@ -95,7 +95,7 @@
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame = CGRectMake(BUTTON_X, self.view.frame.size.height - POSITION_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
-    [backBtn setTitle:@"重拍" forState:UIControlStateNormal];
+    [backBtn setTitle:kInternationalization(@"remake") forState:UIControlStateNormal];
     backBtn.backgroundColor = [UIColor whiteColor];
     [backBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -105,7 +105,7 @@
     UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     submitBtn.frame = CGRectMake(self.view.frame.size.width - BUTTON_X - BUTTON_WIDTH, self.view.frame.size.height - POSITION_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
     NSLog(@"frame=%f",submitBtn.frame.origin.x);
-    [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
+    [submitBtn setTitle:kInternationalization(@"submit") forState:UIControlStateNormal];
     submitBtn.backgroundColor = [UIColor whiteColor];
     [submitBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [submitBtn addTarget:self action:@selector(submitBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -114,7 +114,7 @@
     if (self.isByOpenInternal) {
         backBtn.backgroundColor = [UIColor blackColor];
         [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [submitBtn setTitle:@"使用照片" forState:UIControlStateNormal];
+        [submitBtn setTitle:kInternationalization(@"usePhoto") forState:UIControlStateNormal];
         submitBtn.backgroundColor = [UIColor blackColor];
         [submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }

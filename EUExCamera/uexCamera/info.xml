@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <uexplugins>
     <plugin
-        uexName="uexCamera" version="3.0.6" build="6">
-        <info>6:修改IDE</info>
+        uexName="uexCamera" version="3.0.7" build="7">
+        <info>7:创建bundle存储资源文件，适配国际化</info>
+        <build>6:修改IDE</build>
         <build>5:修改openViewCamera接口适配地址长度,修改openInternal崩溃bug,修改第一次切换镜头无效</build>
         <build>4:修改openViewCamera不传照片质量崩溃bug,修改changeFlashMode闪光灯接口</build>
         <build>3:插件改为arc，添加openInternal自定义相机接口，添加openViewCamera自定义view模式相机</build>

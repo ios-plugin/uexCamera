@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  EUExCamera
+
+  Created by zywx on 16/4/8.
+  Copyright © 2016年 xll. All rights reserved.
+*/
+"noAddress"="暂无地址";
+"prompt"="提示信息";
+"noCamera"="您的设备没有拍照功能";
+"cancel"="取消";
+"noFlash"="您的设备没有闪光灯功能";
+"takePhotos"="拍照";
+"back"="返回";
+"remake"="重拍";
+"submit"="提交";
+"usePhoto"="使用照片";

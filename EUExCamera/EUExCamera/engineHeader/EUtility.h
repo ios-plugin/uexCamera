@@ -46,4 +46,15 @@ void PluginLog(NSString *format, ...);
 + (void)brwView:(EBrowserView*)inBrwView navigationPresentModalViewController:(UIViewController *)modalViewController animated:(BOOL)animated;
 +(UIColor*)ColorFromString:(NSString*)inColor;
 +(NSString*)getAbsPath:(EBrowserView*)meBrwView path:(NSString*)inPath;
+
+/**
+ *  插件国际化
+ *
+ *  @param pluginName 插件名
+ *  @param key        插件bundle中Localizable.string里声明的字符串key
+ *  @param defaultValue 如果有传入第二个参数，即为defaultValue key匹配失败时会返回此值
+ *  @return key对应的国际化字符串
+ */
++(NSString *)uexPlugin:(NSString *)pluginName localizedString:(NSString *)key,...;
++(NSBundle *)bundleForPlugin:(NSString *)pluginName;
 @end

@@ -14,6 +14,7 @@
 #import "EUExCamera.h"
 #import "EUExBaseDefine.h"
 #import "CameraDefines.h"
+#import "CameraInternationalization.h"
 
 #define SWITCH_SHOW_FOCUSVIEW_UNTIL_FOCUS_DONE      0   //对焦框是否一直闪到对焦完成
 #define SWITCH_SHOW_DEFAULT_IMAGE_FOR_NONE_CAMERA   1   //没有拍照功能的设备，是否给一张默认图片体验一下
@@ -96,7 +97,7 @@
     self.captureManager = manager;
     
     [self addCameraMenuView];
-    [self addTopViewWithText:@"拍照"];
+    [self addTopViewWithText:kInternationalization(@"takePhotos")];
     
     //伸缩手势
     [self addPinchGesture];
@@ -131,13 +132,13 @@
         
         topFrame.origin.x += 10;
         switchCameraBtn = [[UIButton alloc] initWithFrame:CGRectMake(cameraWidth - 62, 0, 44, topFrame.size.height)];
-        [switchCameraBtn setImage:[UIImage imageNamed:@"uexCamera/switch_camera.png"] forState:UIControlStateNormal];
+        [switchCameraBtn setImage:[CameraInternationalization getImageFromLocalFile:@"switch_camera" type:@"png"] forState:UIControlStateNormal];
         [switchCameraBtn addTarget:self action:@selector(switchCamera:) forControlEvents:UIControlEventTouchUpInside];
         [_topContainerView addSubview:switchCameraBtn];
         
     
         switchFlashBtn = [[UIButton alloc] initWithFrame:CGRectMake(22, 0, 44, topFrame.size.height)];
-        [switchFlashBtn setImage:[UIImage imageNamed:@"uexCamera/flashing_off.png"] forState:UIControlStateNormal];
+        [switchFlashBtn setImage:[CameraInternationalization getImageFromLocalFile:@"flashing_off" type:@"png"] forState:UIControlStateNormal];
         [switchFlashBtn addTarget:self action:@selector(switchFlashButton:) forControlEvents:UIControlEventTouchUpInside];
         [_topContainerView addSubview:switchFlashBtn];
 
@@ -157,7 +158,7 @@
     backCenterPoint.y = _cameraMenuView.center.y - _cameraMenuView.frame.origin.y;
     backBtn.center = backCenterPoint;
     backBtn.backgroundColor = [UIColor blackColor];
-    [backBtn setTitle:@"返回" forState:UIControlStateNormal];
+    [backBtn setTitle:kInternationalization(@"back") forState:UIControlStateNormal];
     backBtn.titleLabel.textColor = [UIColor whiteColor];
     [backBtn addTarget:self action:@selector(closeCamera) forControlEvents:UIControlEventTouchUpInside];
     [_cameraMenuView addSubview:backBtn];
@@ -165,8 +166,8 @@
     
     //拍照按钮
     [self buildButton:cameraBtnFrame
-         normalImgStr:@"uexCamera/plugin_camera_bt_takepic_normal.png"
-      highlightImgStr:@"uexCamera/plugin_camera_bt_takepic_on.png"
+         normalImgStr:@"plugin_camera_bt_takepic_normal"
+      highlightImgStr:@"plugin_camera_bt_takepic_on"
        selectedImgStr:@""
                action:@selector(takePictureBtnPressed:)
            parentView:self.view];
@@ -183,13 +184,13 @@
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = frame;
     if (normalImgStr.length > 0) {
-        [btn setImage:[UIImage imageNamed:normalImgStr] forState:UIControlStateNormal];
+        [btn setImage:[CameraInternationalization getImageFromLocalFile:normalImgStr type:@"png"] forState:UIControlStateNormal];
     }
     if (highlightImgStr.length > 0) {
-        [btn setImage:[UIImage imageNamed:highlightImgStr] forState:UIControlStateHighlighted];
+        [btn setImage:[CameraInternationalization getImageFromLocalFile:highlightImgStr type:@"png"] forState:UIControlStateHighlighted];
     }
     if (selectedImgStr.length > 0) {
-        [btn setImage:[UIImage imageNamed:selectedImgStr] forState:UIControlStateSelected];
+        [btn setImage:[CameraInternationalization getImageFromLocalFile:selectedImgStr type:@"png"] forState:UIControlStateSelected];
     }
     [btn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
     [parentView addSubview:btn];
@@ -211,7 +212,7 @@
 
 //对焦的框
 - (void)addFocusView {
-    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"../uexCamera/touch_focus_x.png"]];
+    UIImageView *imgView = [[UIImageView alloc] initWithImage:[CameraInternationalization getImageFromLocalFile:@"touch_focus_x" type:@"png"]];
     imgView.alpha = 0;
     [self.view addSubview:imgView];
     self.focusImageView = imgView;
@@ -417,20 +418,20 @@
    
     if (isFrontCamera) {
     
-        imgStr = @"uexCamera/switch_camera_h.png";
+        imgStr = @"switch_camera_h";
         
     } else{
-        imgStr = @"uexCamera/switch_camera.png";
+        imgStr = @"switch_camera";
         
     }
     
     if (sender) {
-        [sender setImage:[UIImage imageNamed:imgStr] forState:UIControlStateNormal];
+        [sender setImage:[CameraInternationalization getImageFromLocalFile:imgStr type:@"png"] forState:UIControlStateNormal];
     }
     if (_uexObj) {
         [_uexObj jsSuccessWithName:@"uexCamera.cbOpenViewCamera" opId:0 dataType:UEX_CALLBACK_DATATYPE_JSON strData:result];
         
-        NSLog(@"EUExCamera==>>submitBtnPressed==>>回调完成");
+        NSLog(@"EUExCamera==>>uexCamera.cbOpenViewCamera==>>回调完成");
         
         [self performSelector:@selector(changeIsAction) withObject:nil afterDelay:0.5f];
         

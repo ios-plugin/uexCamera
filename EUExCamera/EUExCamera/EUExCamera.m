@@ -12,7 +12,7 @@
 #import "CameraUtility.h"
 #import "CameraCaptureCamera.h"
 #import "CameraPickerController.h"
-
+#import "CameraInternationalization.h"
 
 @interface EUExCamera(){
 
@@ -198,7 +198,7 @@
         float y = [array objectAtIndex:1]?[[array objectAtIndex:1] floatValue]:0.0;
         float w = [array objectAtIndex:2]?[[array objectAtIndex:2] floatValue]:SC_DEVICE_SIZE.width;
         float h = [array objectAtIndex:3]?[[array objectAtIndex:3] floatValue]:SC_DEVICE_SIZE.height;
-        NSString *address = [array objectAtIndex:4]?[array objectAtIndex:4]:@"暂无地址";
+        NSString *address = [array objectAtIndex:4]?[array objectAtIndex:4]:kInternationalization(@"noAddress");
         
         _captureCameraView = [[CameraCaptureCamera alloc] initWithFrame:CGRectMake(x, y, w, h)];
         _captureCameraView.address = address;
