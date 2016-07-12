@@ -164,8 +164,10 @@
 	//保存到一个指定目录
 	NSError * error;
     NSFileManager * fmanager = [NSFileManager defaultManager];
-    NSString * wgtPath = [super absPath:@"wgt://"];
-    NSString * imagePath = [CameraUtility getSavename:@"image" wgtPath:wgtPath];
+    NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *createPath = [NSString stringWithFormat:@"%@/EUExCamera/", pathDocuments];
+    NSLog(@"EUExCamera==>>savaImg==>>保存路径createPath=%@",createPath);
+    NSString * imagePath = [CameraUtility getSavename:@"image" wgtPath:createPath];
  	if([fmanager fileExistsAtPath:imagePath]) {
         [fmanager removeItemAtPath:imagePath error:&error];
 	}
