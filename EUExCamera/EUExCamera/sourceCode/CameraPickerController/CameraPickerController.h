@@ -8,20 +8,42 @@
 
 #import <UIKit/UIKit.h>
 #import "CameraCaptureSessionManager.h" 
+#import "CameraPostViewController.h"
+
 @class EUExCamera;
 @class EBrowserView;
+@class CameraPickerController;
 
-@interface CameraPickerController : UIViewController<CloseCaptureCameraDelegate>
+
+@protocol CameraPickerControllerDelegate <NSObject>
+
+@optional
+
+- (void)closeCameraPickerController:(CameraPickerController *)CameraPickerController;
+
+@end
+
+@interface CameraPickerController : UIViewController<CameraPostViewControllerDelegate>
 
 
 @property (nonatomic, assign) CGRect previewRect;
+
 @property (nonatomic, assign) BOOL isStatusBarHiddenBeforeShowCamera;
+
 @property (nonatomic, assign) EBrowserView *meBrwView;
-@property (nonatomic, weak) EUExCamera *uexObj;
+
+@property (nonatomic, assign) EUExCamera *uexObj;
+
 @property (nonatomic, assign) CGFloat scale;
+
 @property (nonatomic, assign) BOOL isCompress;
+
 @property (nonatomic, assign) BOOL isAction;
 
-//@property (nonatomic, assign) id<CloseCaptureCameraDelegate> closeCameraDelegate;
+@property (nonatomic, assign) id<CameraPickerControllerDelegate> delegate;
+
 
 @end
+
+
+

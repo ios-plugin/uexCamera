@@ -21,36 +21,54 @@ typedef void(^DidCapturePhotoBlock)(UIImage *stillImage);
 
 @interface CameraCaptureSessionManager : NSObject
 
+
 @property (nonatomic) dispatch_queue_t sessionQueue;
+
 @property (nonatomic, strong) AVCaptureSession *session;
+
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
+
 @property (nonatomic, strong) AVCaptureDeviceInput *inputDevice;
+
 @property (nonatomic, strong) AVCaptureStillImageOutput *stillImageOutput;
-//@property (nonatomic, strong) UIImage *stillImage;
+
 
 //pinch
 @property (nonatomic, assign) CGFloat preScaleNum;
+
 @property (nonatomic, assign) CGFloat scaleNum;
 
 @property (nonatomic, assign) id <CameraCaptureSessionManager> delegate;
 
 
+
 - (void)configureWithParentLayer:(UIView *)parent previewRect:(CGRect)preivewRect;
+
 - (void)takePicture:(DidCapturePhotoBlock)block;
+
 - (NSString *)switchCamera:(NSString *)cameraPosition;
+
 - (void)pinchCameraViewWithScalNum:(CGFloat)scale;
+
 - (void)pinchCameraView:(UIPinchGestureRecognizer *)gesture;
+
 - (NSString *)switchFlashMode:(NSString *)flashMode;
+
 - (void)switchFlashButton:(UIButton*)sender;
+
 - (void)focusInPoint:(CGPoint)devicePoint;
+
 - (void)switchGrid:(BOOL)toShow;
 
+
 @end
+
 
 
 @protocol CameraCaptureSessionManager <NSObject>
 
 @optional
+
 - (void)didCapturePhoto:(UIImage*)stillImage;
 
 @end

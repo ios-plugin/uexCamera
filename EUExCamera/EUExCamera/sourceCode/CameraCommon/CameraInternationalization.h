@@ -8,15 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import "EUtility.h"
+
 #define kInternationalization(str) [CameraInternationalization localizedString:str,nil]
 
 
 @interface CameraInternationalization : NSObject
+
 
 + (NSBundle *)pluginBundle;
 
 + (NSString*)localizedString:(NSString *)key, ...;
 
 + (UIImage *)getImageFromLocalFile:(NSString*)imageName type:(NSString *)type;
+
 
 @end

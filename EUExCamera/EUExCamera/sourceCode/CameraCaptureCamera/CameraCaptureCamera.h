@@ -8,22 +8,36 @@
 
 #import <UIKit/UIKit.h>
 #import "CameraCaptureSessionManager.h"
+#import "CameraPostViewController.h"
 
 @class EUExCamera;
 @class EBrowserView;
 
+
 @interface CameraCaptureCamera : UIView
 
+
 @property (nonatomic, assign) CGRect previewRect;
+
 @property (nonatomic, assign) BOOL isStatusBarHiddenBeforeShowCamera;
+
 @property (nonatomic, copy) NSString *address;
+
 @property (nonatomic, assign) EBrowserView *meBrwView;
+
 @property (nonatomic, weak) EUExCamera *uexObj;
+
 @property (nonatomic, assign) CGFloat quality;
 
--(void)setUpUI;
+@property (nonatomic, strong) CameraPostViewController *cameraPostViewController;
+
+
+- (void)setUpUI;
+
 - (void)switchCamera:(NSString *)cameraPosition;
+
 - (void)switchFlashMode:(NSString *)flashMode;
 
+- (void)clean;
 
 @end

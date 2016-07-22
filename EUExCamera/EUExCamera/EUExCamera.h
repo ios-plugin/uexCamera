@@ -7,22 +7,8 @@
 
 #import "EUExBase.h"
 
-
-@class CameraCaptureCamera;
-@class CameraPickerController;
-@protocol CloseCaptureCameraDelegate <NSObject>
-@optional
-- (void)CloseCamera;
-- (void)CloseCameraPicker;
-
-@end
-@interface EUExCamera : EUExBase  <CloseCaptureCameraDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
-    BOOL isCompress;//是否压缩
-    float scale;//缩放比例
+@interface EUExCamera : EUExBase{
+    
 }
-@property (nonatomic, strong) CameraCaptureCamera *captureCameraView;
-@property (nonatomic, strong) UIImagePickerController * imagePickerController;
-@property (nonatomic, strong) CameraPickerController * cameraPickerController;
--(void)uexSuccessWithOpId:(int)inOpId dataType:(int)inDataType data:(NSString *)inData;
-- (void)removeViewCameraFromWindow;
+
 @end

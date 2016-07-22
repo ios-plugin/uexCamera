@@ -202,7 +202,6 @@
 				D75F5EC11C604CE500F480FA /* CameraCaptureCamera */,
 				D75F5ECE1C604CE500F480FA /* CameraPickerController */,
 				D75F5ECA1C604CE500F480FA /* CameraCommon */,
-				D75F5ED11C604CE500F480FA /* JSON */,
 				D75F5EDA1C604CE500F480FA /* Post */,
 			);
 			path = sourceCode;
@@ -230,6 +229,7 @@
 				D77673FF1CBCC52B00D51CF2 /* CameraInternationalization.m */,
 				D75F5ECB1C604CE500F480FA /* CameraCommon.h */,
 				D75F5ECC1C604CE500F480FA /* CameraCommon.m */,
+				D75F5ED11C604CE500F480FA /* JSON */,
 				D75F5ECD1C604CE500F480FA /* CameraDefines.h */,
 			);
 			path = CameraCommon;
@@ -256,7 +256,8 @@
 				D75F5ED81C604CE500F480FA /* SBJsonParser.h */,
 				D75F5ED91C604CE500F480FA /* SBJsonWriter.h */,
 			);
-			path = JSON;
+			name = JSON;
+			path = ../JSON;
 			sourceTree = "<group>";
 		};
 		D75F5EDA1C604CE500F480FA /* Post */ = {

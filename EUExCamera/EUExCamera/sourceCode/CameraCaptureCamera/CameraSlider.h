@@ -9,31 +9,46 @@
 #import <UIKit/UIKit.h>
 
 typedef void(^DidChangeValueBlock)(CGFloat value);
+
 typedef void(^TouchEndBlock)(CGFloat value, BOOL isTouchEnd);
+
+
 @protocol CameraSliderDelegate;
 
 typedef enum {
+    
     CameraSliderDirectionHorizonal  =   0,
+    
     CameraSliderDirectionVertical   =   1
+    
 } CameraSliderDirection;
+
 
 @interface CameraSlider : UIControl
 
 
 @property (nonatomic, assign) CGFloat minValue;//最小值
+
 @property (nonatomic, assign) CGFloat maxValue;//最大值
+
 @property (nonatomic, assign) CGFloat value;//滑动值
 
+
 @property (nonatomic, assign) BOOL showHalfWhenCirlceIsTop;     //是否让圆滑至两端后可以超出线半径个像素长
+
 @property (nonatomic, assign) BOOL lineWidth;                   //线的宽度
+
 @property (nonatomic, assign) BOOL circleRadius;                //圆的半径
+
 @property (nonatomic, assign) BOOL isFullFillCircle;            //YES：中间全部填充颜色    NO：一个环
 
 @property (nonatomic, assign) BOOL isSliding;                   //是否正在滑动
 
 
 @property (nonatomic, copy) DidChangeValueBlock didChangeValueBlock;
+
 @property (nonatomic, copy) TouchEndBlock touchEndBlock;
+
 @property (nonatomic, assign) id <CameraSliderDelegate> delegate;
 
 /**
@@ -45,8 +60,6 @@ typedef enum {
  *  @return SCSlider
  */
 - (id)initWithFrame:(CGRect)frame direction:(CameraSliderDirection)direction;
-
-
 
 
 /**
@@ -68,16 +81,12 @@ typedef enum {
      isFullFillCircle:(BOOL)isFullFillCircle;
 
 
-
-
 /**
  *  value改变后的回调
  *
  *  @param didChangeValueBlock value改变的回调block
  */
 - (void)buildDidChangeValueBlock:(DidChangeValueBlock)didChangeValueBlock;
-
-
 
 
 /**
@@ -88,8 +97,6 @@ typedef enum {
 - (void)buildTouchEndBlock:(TouchEndBlock)touchEndBlock;
 
 
-
-
 /**
  *  设置value值，并设置是否要调用回调函数
  *
@@ -98,14 +105,18 @@ typedef enum {
  */
 - (void)setValue:(CGFloat)value shouldCallBack:(BOOL)shouldCallBack;
 
+
 @end
 
 
 
 @protocol CameraSliderDelegate <NSObject>
 
+
 @optional
+
 - (void)didChangeValueSCSlider:(CameraSlider*)slider value:(CGFloat)value;
+
 - (void)didSCSliderTouchEnd:(CameraSlider*)slider value:(CGFloat)value isTouch:(BOOL)isTouchEnd;
 
 

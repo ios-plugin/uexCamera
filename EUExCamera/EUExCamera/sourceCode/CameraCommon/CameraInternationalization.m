@@ -9,7 +9,7 @@
 
 @implementation CameraInternationalization
 
-+ (NSBundle *)pluginBundle{
++ (NSBundle *)pluginBundle {
     
     NSString * bundleName = [NSString stringWithFormat:@"uexCamera.bundle"];
     
@@ -19,21 +19,31 @@
     
 }
 
-+ (NSString*)localizedString:(NSString *)key,...{
++ (NSString*)localizedString:(NSString *)key,... {
     
     NSString *defaultValue=@"";
+    
     va_list argList;
+    
     va_start(argList,key);
+    
     id arg=va_arg(argList,id);
+    
     //if(arg && [arg isKindOfClass:[NSString class]]){
-    if(arg){
+    
+    if(arg) {
+        
         defaultValue=arg;
+        
     }
+    
     va_end(argList);
+    
     return [EUtility uexPlugin:@"uexCamera" localizedString:key,defaultValue];
+    
 }
 
-+ (UIImage *)getImageFromLocalFile:(NSString*)imageName type:(NSString *)type{
++ (UIImage *)getImageFromLocalFile:(NSString*)imageName type:(NSString *)type {
     
     //动态库要用[EUtility bundleForPlugin:@"uexCamera"]获取bundle，静态库可以用[self pluginBundle]
     NSBundle *_mBundle = [EUtility bundleForPlugin:@"uexCamera"];
