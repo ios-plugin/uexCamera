@@ -30,9 +30,9 @@
 
 @property (nonatomic, assign) BOOL isStatusBarHiddenBeforeShowCamera;
 
-@property (nonatomic, assign) EBrowserView *meBrwView;
+@property (nonatomic, weak) EBrowserView *meBrwView;
 
-@property (nonatomic, assign) EUExCamera *uexObj;
+@property (nonatomic, weak) EUExCamera *uexObj;
 
 @property (nonatomic, assign) CGFloat scale;
 

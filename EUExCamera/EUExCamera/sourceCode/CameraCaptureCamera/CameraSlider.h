@@ -5,51 +5,26 @@
 //  Created by zywx on 16/1/22.
 //  Copyright © 2016年 zywx. All rights reserved.
 //
-
 #import <UIKit/UIKit.h>
-
 typedef void(^DidChangeValueBlock)(CGFloat value);
-
 typedef void(^TouchEndBlock)(CGFloat value, BOOL isTouchEnd);
-
-
 @protocol CameraSliderDelegate;
-
 typedef enum {
-    
     CameraSliderDirectionHorizonal  =   0,
-    
     CameraSliderDirectionVertical   =   1
-    
 } CameraSliderDirection;
-
-
 @interface CameraSlider : UIControl
-
-
 @property (nonatomic, assign) CGFloat minValue;//最小值
-
 @property (nonatomic, assign) CGFloat maxValue;//最大值
-
 @property (nonatomic, assign) CGFloat value;//滑动值
-
-
 @property (nonatomic, assign) BOOL showHalfWhenCirlceIsTop;     //是否让圆滑至两端后可以超出线半径个像素长
-
 @property (nonatomic, assign) BOOL lineWidth;                   //线的宽度
-
 @property (nonatomic, assign) BOOL circleRadius;                //圆的半径
-
 @property (nonatomic, assign) BOOL isFullFillCircle;            //YES：中间全部填充颜色    NO：一个环
-
 @property (nonatomic, assign) BOOL isSliding;                   //是否正在滑动
-
-
 @property (nonatomic, copy) DidChangeValueBlock didChangeValueBlock;
-
 @property (nonatomic, copy) TouchEndBlock touchEndBlock;
-
-@property (nonatomic, assign) id <CameraSliderDelegate> delegate;
+@property (nonatomic, weak) id <CameraSliderDelegate> delegate;
 
 /**
  *  初始化，可设置方向（横或竖）
@@ -60,7 +35,6 @@ typedef enum {
  *  @return SCSlider
  */
 - (id)initWithFrame:(CGRect)frame direction:(CameraSliderDirection)direction;
-
 
 /**
  *  drawRect，此函数将所有用到的参数都放在一起，方便查看。也可直接在外部类设置好某个值后，手动调用setNeedsDisplay函数
@@ -80,7 +54,6 @@ typedef enum {
          circleRadius:(CGFloat)circleRadius
      isFullFillCircle:(BOOL)isFullFillCircle;
 
-
 /**
  *  value改变后的回调
  *
@@ -88,14 +61,12 @@ typedef enum {
  */
 - (void)buildDidChangeValueBlock:(DidChangeValueBlock)didChangeValueBlock;
 
-
 /**
  *  滑动结束后的回调
  *
  *  @param touchEndBlock 滑动结束后的回调block
  */
 - (void)buildTouchEndBlock:(TouchEndBlock)touchEndBlock;
-
 
 /**
  *  设置value值，并设置是否要调用回调函数
@@ -105,19 +76,10 @@ typedef enum {
  */
 - (void)setValue:(CGFloat)value shouldCallBack:(BOOL)shouldCallBack;
 
-
 @end
 
-
-
 @protocol CameraSliderDelegate <NSObject>
-
-
 @optional
-
 - (void)didChangeValueSCSlider:(CameraSlider*)slider value:(CGFloat)value;
-
 - (void)didSCSliderTouchEnd:(CameraSlider*)slider value:(CGFloat)value isTouch:(BOOL)isTouchEnd;
-
-
 @end
