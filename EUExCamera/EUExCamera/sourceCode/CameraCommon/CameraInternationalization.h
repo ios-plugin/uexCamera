@@ -15,7 +15,10 @@
 @interface CameraInternationalization : NSObject
 
 
++ (NSBundle *)pluginBundle;
+
 + (NSString*)localizedString:(NSString *)key, ...;
+
 + (UIImage *)getImageFromLocalFile:(NSString*)imageName type:(NSString *)type;
 
 
