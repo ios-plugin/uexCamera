@@ -5,7 +5,7 @@
         <method name="openInternal"></method>
         <method name="openViewCamera"></method>
         <method name="removeViewCameraFromWindow"></method>
-        <method name="changeFlashMode"></method>
-        <method name="changeCameraPosition"></method>
+        <method name="changeFlashMode" sync = "true"></method>
+        <method name="changeCameraPosition" sync = "true"></method>
 	</plugin>
 </uexplugins>

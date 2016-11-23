@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
-  <plugin uexName="uexCamera" version="3.0.11" build="11">
-    <info>11: IDE证书更新</info>
-    <build>10: 修改removeViewCameraFromWindow接口无效以及自定义相机内存泄漏问题</build>
-    <build>9: 修改系统相机第一次拍照保存路径bug</build>
-    <build>8: cbOpenViewCamera回调方法,返回的JSON中增加字段label,替换之前的location</build>
-    <build>7: 创建bundle存储资源文件，适配国际化</build>
-    <build>6: 修改IDE</build>
-    <build>5: 修改openViewCamera接口适配地址长度,修改openInternal崩溃bug,修改第一次切换镜头无效</build>
-    <build>4: 修改openViewCamera不传照片质量崩溃bug,修改changeFlashMode闪光灯接口</build>
-    <build>3: 插件改为arc，添加openInternal自定义相机接口，添加openViewCamera自定义view模式相机</build>
-    <build>2: 添加IDE支持</build>
-    <build>1: 使用新版Xcode重新编译,支持arm64</build>
-    <build>0: 照相机功能插件</build>
+  <plugin uexName="uexCamera" version="4.0.0" build="0">
+    <info>0: 相机插件</info>
   </plugin>
 </uexplugins>

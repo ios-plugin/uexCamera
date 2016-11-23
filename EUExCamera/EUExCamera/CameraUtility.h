@@ -11,7 +11,5 @@
 @interface CameraUtility : NSObject
 
 + (NSString *)getSavename:(NSString *)type wgtPath:(NSString *)wgtPath;
-
 + (UIImage *)imageByScalingAndCroppingForSize:(UIImage *)sourceImage width:(float)destWith;
-
 @end
