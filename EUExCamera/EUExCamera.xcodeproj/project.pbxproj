@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2153A0EA1D6551FF003F86C0 /* AppCanKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2153A0E91D6551FF003F86C0 /* AppCanKit.framework */; };
+		3C34AA211E0E22AC00149E44 /* AppCanKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C34AA201E0E22AC00149E44 /* AppCanKit.framework */; };
 		5AA8D54B188F9DBB00C854BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AA8D54A188F9DBB00C854BC /* Foundation.framework */; };
 		5AA8D552188F9DBB00C854BC /* EUExCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA8D551188F9DBB00C854BC /* EUExCamera.m */; };
 		D75F5EB01C6046B600F480FA /* CameraUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = D75F5EAF1C6046B600F480FA /* CameraUtility.m */; };
@@ -60,7 +60,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2153A0E91D6551FF003F86C0 /* AppCanKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCanKit.framework; sourceTree = "<group>"; };
+		3C34AA201E0E22AC00149E44 /* AppCanKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCanKit.framework; sourceTree = "<group>"; };
 		5A60A94A18AB608500C727A6 /* EUExCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EUExCamera.h; sourceTree = "<group>"; };
 		5AA8D547188F9DBB00C854BC /* libuexCamera.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libuexCamera.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AA8D54A188F9DBB00C854BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -114,7 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2153A0EA1D6551FF003F86C0 /* AppCanKit.framework in Frameworks */,
+				3C34AA211E0E22AC00149E44 /* AppCanKit.framework in Frameworks */,
 				5AA8D54B188F9DBB00C854BC /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -192,7 +192,7 @@
 		D75F5EC01C604CE500F480FA /* sourceCode */ = {
 			isa = PBXGroup;
 			children = (
-				2153A0E91D6551FF003F86C0 /* AppCanKit.framework */,
+				3C34AA201E0E22AC00149E44 /* AppCanKit.framework */,
 				D75F5EC11C604CE500F480FA /* CameraCaptureCamera */,
 				D75F5ECE1C604CE500F480FA /* CameraPickerController */,
 				D75F5ECA1C604CE500F480FA /* CameraCommon */,

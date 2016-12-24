@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
-  <plugin uexName="uexCamera" version="4.0.0" build="0">
-    <info>0: 相机插件</info>
+  <plugin uexName="uexCamera" version="4.0.1" build="1">
+      <info>1: open接口修改为不对图片尺寸进行压缩</info>
+      <build>0: 相机插件</build>
   </plugin>
 </uexplugins>

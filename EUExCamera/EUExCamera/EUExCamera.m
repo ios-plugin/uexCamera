@@ -108,14 +108,20 @@
  	if([fmanager fileExistsAtPath:imagePath]) {
         [fmanager removeItemAtPath:imagePath error:&error];
 	}
-	UIImage * newImage = [EUtility rotateImage:image];
-    //压缩
-    UIImage * needSaveImg = [CameraUtility imageByScalingAndCroppingForSize:newImage width:640];
+    
     //压缩比率，0：压缩后的图片最小，1：压缩后的图片最大
     NSData * imageData = nil;
     CGFloat quality = isCompress ? scale : 1;
-    imageData = UIImageJPEGRepresentation(needSaveImg, quality);
-
+    
+//	UIImage * newImage = [EUtility rotateImage:image];
+//    //压缩
+//    UIImage * needSaveImg = [CameraUtility imageByScalingAndCroppingForSize:newImage width:640];
+//    imageData = UIImageJPEGRepresentation(needSaveImg, quality);
+    
+    
+    //有开发者有需要原图的需求
+    imageData = UIImageJPEGRepresentation(image, quality);
+    
 	if ([imageData writeToFile:imagePath atomically:YES]) {
         [self.webViewEngine callbackWithFunctionKeyPath:@"uexCamera.cbOpen" arguments:ACArgsPack(@0,@(UEX_CALLBACK_DATATYPE_TEXT),imagePath)];
         [self.funcOpen executeWithArguments:ACArgsPack(imagePath)];
@@ -241,7 +247,16 @@
 //设置压缩参数
 - (void)setCompressAndScale:(NSMutableArray *)inArguments{
     ACArgsUnpack(NSNumber *compressFlag,NSNumber *scaleNum) = inArguments;
-    isCompress = compressFlag.boolValue;
+    if(compressFlag == nil){
+        isCompress = NO;
+        return;
+    }
+    if([compressFlag integerValue] == 0){
+        isCompress = YES;
+    }
+    else{
+        isCompress = NO;
+    }
     scale = scaleNum.floatValue / 100;
     if (scale <= 0 || scale > 1) {
         scale = 0.5;
