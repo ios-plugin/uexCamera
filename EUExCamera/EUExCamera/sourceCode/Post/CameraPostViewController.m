@@ -11,11 +11,22 @@
 #import "CameraUtility.h"
 #import "CameraInternationalization.h"
 #import "EUExCamera.h"
-@interface CameraPostViewController (){
-    CGSize lblSize;
-}
+
+@interface CameraPostViewController()
+
+@property (nonatomic, assign) CGSize labelSize;
+@property (nonatomic, strong) UIButton *backButton;
+@property (nonatomic, strong) UIButton *submitButton;
+@property (nonatomic, strong) UIImageView *imageView;
+
 @end
 @implementation CameraPostViewController
+
+
+
+    
+
+    
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -30,42 +41,68 @@
     if (!self.isByOpenInternal) {
     }
 }
+
+
+- (UIButton *)backButton{
+    if (!_backButton) {
+        _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_backButton setTitle:kInternationalization(@"remake") forState:UIControlStateNormal];
+        _backButton.backgroundColor = [UIColor whiteColor];
+        [_backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_backButton addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _backButton;
+}
+
+- (UIImageView *)imageView{
+    if (!_imageView) {
+        _imageView = [[UIImageView alloc] initWithImage:_postImage];
+        _imageView.clipsToBounds = YES;
+        _imageView.contentMode = UIViewContentModeScaleAspectFill;
+        
+    }
+    return _imageView;
+}
+
+- (UIButton *)submitButton{
+    if (!_submitButton) {
+        _submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_submitButton setTitle:kInternationalization(@"submit") forState:UIControlStateNormal];
+        _submitButton.backgroundColor = [UIColor whiteColor];
+        [_submitButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_submitButton addTarget:self action:@selector(submitBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _submitButton;
+    
+}
+
+
+- (void)viewWillLayoutSubviews{
+    self.backButton.frame = CGRectMake(BUTTON_X, self.view.frame.size.height - POSITION_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
+    CGFloat imgViewWidth = self.isByOpenInternal ? self.view.frame.size.width : self.view.frame.size.width - POSITION_LEFT * 2;
+    CGFloat imgViewX = self.isByOpenInternal ? 0 : POSITION_LEFT;
+    self.imageView.frame = CGRectMake(imgViewX, POSITION_TOP, imgViewWidth, self.view.frame.size.height - _labelSize.height - POSITION_BOTTOM * 3);
+    self.submitButton.frame = CGRectMake(self.view.frame.size.width - BUTTON_X - BUTTON_WIDTH, self.view.frame.size.height - POSITION_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
+    self.middleContainerView.frame =  CGRectMake(0, self.view.frame.size.height - kSpacing * 2 - _labelSize.height - POSITION_BOTTOM, self.view.frame.size.width, _labelSize.height);
+    CGFloat maxW = self.view.frame.size.width - POSITION_LEFT;
+    _labelSize = [self.address sizeWithFont:_middleLbl.font constrainedToSize:CGSizeMake(maxW, MAXFLOAT)];
+    self.middleLbl.frame = CGRectMake((self.view.frame.size.width - _labelSize.width) / 2, 0, _labelSize.width, _labelSize.height);
+}
+
+    
+
+    
 - (void) setUpUI {
     self.view.backgroundColor = [UIColor lightGrayColor];
-    CGFloat imgViewWidth = self.view.frame.size.width - POSITION_LEFT * 2;
-    CGFloat imgViewX = POSITION_LEFT;
+    [self.view addSubview:self.backButton];
+    [self.view addSubview:self.imageView];
+    [self.view addSubview:self.submitButton];
     if (self.isByOpenInternal) {
-        self.view.backgroundColor = [UIColor blackColor];
-        imgViewWidth = self.view.frame.size.width;
-        imgViewX = 0;
-    }
-    if (_postImage) {
-        UIImageView *imgView = [[UIImageView alloc] initWithImage:_postImage];
-        imgView.clipsToBounds = YES;
-        imgView.contentMode = UIViewContentModeScaleAspectFill;
-        imgView.frame = CGRectMake(imgViewX, POSITION_TOP, imgViewWidth, self.view.frame.size.height - lblSize.height - POSITION_BOTTOM * 3);
-        [self.view addSubview:imgView];
-    }
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(BUTTON_X, self.view.frame.size.height - POSITION_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
-    [backBtn setTitle:kInternationalization(@"remake") forState:UIControlStateNormal];
-    backBtn.backgroundColor = [UIColor whiteColor];
-    [backBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backBtn];
-    UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    submitBtn.frame = CGRectMake(self.view.frame.size.width - BUTTON_X - BUTTON_WIDTH, self.view.frame.size.height - POSITION_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
-    [submitBtn setTitle:kInternationalization(@"submit") forState:UIControlStateNormal];
-    submitBtn.backgroundColor = [UIColor whiteColor];
-    [submitBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [submitBtn addTarget:self action:@selector(submitBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:submitBtn];
-    if (self.isByOpenInternal) {
-        backBtn.backgroundColor = [UIColor blackColor];
-        [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [submitBtn setTitle:kInternationalization(@"usePhoto") forState:UIControlStateNormal];
-        submitBtn.backgroundColor = [UIColor blackColor];
-        [submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.backButton.backgroundColor = [UIColor blackColor];
+        [self.backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.submitButton setTitle:kInternationalization(@"usePhoto") forState:UIControlStateNormal];
+        self.submitButton.backgroundColor = [UIColor blackColor];
+        [self.submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
 }
 //地理位置
@@ -73,15 +110,11 @@
     if (!_middleContainerView) {
         _middleLbl = [[UILabel alloc] init];
         _middleLbl.font = [UIFont systemFontOfSize:ADDRESS_FONT];
-        CGFloat maxW = self.view.frame.size.width - POSITION_LEFT;
-        lblSize = [text sizeWithFont:_middleLbl.font constrainedToSize:CGSizeMake(maxW, MAXFLOAT)];
-        CGRect middleFrame = CGRectMake(0, self.view.frame.size.height - kSpacing * 2 - lblSize.height - POSITION_BOTTOM, self.view.frame.size.width, lblSize.height);
-        UIView *mView = [[UIView alloc] initWithFrame:middleFrame];
+        UIView *mView = [[UIView alloc] init];
         mView.backgroundColor = [UIColor clearColor];
         [self.view addSubview:mView];
         self.middleContainerView = mView;
         _middleLbl.numberOfLines = 0;
-        _middleLbl.frame = CGRectMake((self.view.frame.size.width - lblSize.width) / 2, 0, lblSize.width, middleFrame.size.height);
         _middleLbl.backgroundColor = [UIColor clearColor];
         _middleLbl.textColor = [UIColor blackColor];
         _middleLbl.text = text;
