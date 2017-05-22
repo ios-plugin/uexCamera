@@ -25,7 +25,7 @@
     int alphaTimes;
     CGPoint currTouchPoint;
 }
-@property (nonatomic, strong) CameraCaptureSessionManager *captureManager;
+
 @property (nonatomic, strong) UIView *middleContainerView;//中部view
 @property (nonatomic, strong) UILabel *middleLbl;//中部的地址信息
 @property (nonatomic, strong) UIView *cameraMenuView;//网格、闪光灯、前后摄像头等按钮

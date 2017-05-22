@@ -11,6 +11,7 @@
 @class EUExCamera;
 @class EBrowserView;
 @interface CameraCaptureCamera : UIView
+@property (nonatomic, strong) CameraCaptureSessionManager *captureManager;
 @property (nonatomic, assign) CGRect previewRect;
 @property (nonatomic, assign) BOOL isStatusBarHiddenBeforeShowCamera;
 @property (nonatomic, copy) NSString *address;

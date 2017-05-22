@@ -14,7 +14,16 @@
 #define MIN_PINCH_SCALE_NUM   1.f
 @protocol CameraCaptureSessionManager;
 typedef void(^DidCapturePhotoBlock)(UIImage *stillImage);
+
+typedef NS_ENUM(NSUInteger, uexCameraViewCaptureOptions){
+    uexCameraViewCaptureOptionNone = 0,
+    uexCameraViewCaptureOptionUseOriginImage = 1 << 0
+};
 @interface CameraCaptureSessionManager : NSObject
+
+
+
+
 @property (nonatomic) dispatch_queue_t sessionQueue;
 @property (nonatomic, strong) AVCaptureSession *session;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
@@ -24,6 +33,7 @@ typedef void(^DidCapturePhotoBlock)(UIImage *stillImage);
 @property (nonatomic, assign) CGFloat preScaleNum;
 @property (nonatomic, assign) CGFloat scaleNum;
 @property (nonatomic, assign) id <CameraCaptureSessionManager> delegate;
+@property (nonatomic, assign) uexCameraViewCaptureOptions options;
 - (void)configureWithParentLayer:(UIView *)parent previewRect:(CGRect)preivewRect;
 - (void)takePicture:(DidCapturePhotoBlock)block;
 - (NSString *)switchCamera:(NSString *)cameraPosition;

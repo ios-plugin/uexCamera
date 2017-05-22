@@ -159,8 +159,18 @@
 #pragma mark - openViewCamera
 - (void)openViewCamera:(NSMutableArray *)inArguments {
     
-    ACArgsUnpack(NSNumber *xNum,NSNumber *yNum,NSNumber *wNum,NSNumber *hNum,NSString *address,NSNumber *qualityNum) = inArguments;
-
+    ACArgsUnpack(NSNumber *xNum,NSNumber *yNum,NSNumber *wNum,NSNumber *hNum,NSString *hint,NSNumber *qualityNum) = inArguments;
+    NSDictionary *info = dictionaryArg(inArguments.firstObject);
+    NSNumber *options = nil;
+    if (info) {
+        xNum = numberArg(info[@"x"]);
+        yNum = numberArg(info[@"y"]);
+        wNum = numberArg(info[@"width"]);
+        hNum = numberArg(info[@"height"]);
+        hint = stringArg(info[@"hint"]);
+        qualityNum = numberArg(info[@"quality"]);
+        options = numberArg(info[@"options"]);
+    }
     ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
     //为避免冲突先关闭其他自定义相机
     [self closeAllCamera];
@@ -168,10 +178,10 @@
     CGFloat y = yNum ? yNum.floatValue : 0;
     CGFloat w = wNum ? wNum.floatValue : SC_DEVICE_WIDTH;
     CGFloat h = hNum ? hNum.floatValue : SC_DEVICE_HEIGHT;
-    address = address?:kInternationalization(@"noAddress");
+    hint = hint ?: kInternationalization(@"noAddress");
     self.captureCameraView = [[CameraCaptureCamera alloc] initWithFrame:CGRectMake(x, y, w, h)];
     self.captureCameraView.funcOpenViewCamera = func;
-    self.captureCameraView.address = address;
+    self.captureCameraView.address = hint;
     self.captureCameraView.webViewEngine = self.webViewEngine;
     self.captureCameraView.uexObj = self;
     self.captureCameraView.cameraPostViewController.delegate = self;
@@ -179,6 +189,9 @@
         self.captureCameraView.quality = qualityNum.floatValue / 100.0;
     }
     [self.captureCameraView setUpUI];
+    if (options) {
+        self.captureCameraView.captureManager.options = options.unsignedIntegerValue;
+    }
     [[self.webViewEngine webView] addSubview:self.captureCameraView];
     
 }

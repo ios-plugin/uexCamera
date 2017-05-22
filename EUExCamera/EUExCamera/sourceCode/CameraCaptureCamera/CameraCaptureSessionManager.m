@@ -57,6 +57,7 @@
 - (void)addSession {
     AVCaptureSession *tmpSession = [[AVCaptureSession alloc] init];
     self.session = tmpSession;
+    ACLogInfo(@"sessionPreset: %@",tmpSession.sessionPreset);
     //设置质量
     //  _session.sessionPreset = AVCaptureSessionPresetPhoto;
 }
@@ -151,20 +152,25 @@
 
     [_stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
 
-        CFDictionaryRef exifAttachments = CMGetAttachment(imageDataSampleBuffer, kCGImagePropertyExifDictionary, NULL);
 
         NSData *imageData = nil;
         if (!error) {
             imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
         }
         UIImage *image = [[UIImage alloc] initWithData:imageData];
-        //        [SCCommon saveImageToPhotoAlbum:image];
-        CGFloat squareLength = SC_APP_SIZE.width;
-        CGFloat headHeight = _previewLayer.bounds.size.height - squareLength;//_previewLayer的frame是(0, 44, 320, 320 + 44)
-        CGSize size = CGSizeMake(squareLength * 2, squareLength * 2);
-        UIImage *scaledImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill bounds:size interpolationQuality:kCGInterpolationHigh];
-        CGRect cropFrame = CGRectMake((scaledImage.size.width - size.width) / 2, (scaledImage.size.height - size.height) / 2 + headHeight, size.width, size.height);
-        UIImage *croppedImage = [scaledImage croppedImage:cropFrame];
+        UIImage *croppedImage;
+        if (self.options & uexCameraViewCaptureOptionUseOriginImage) {
+            croppedImage = image;
+        } else {
+            CGFloat squareLength = SC_APP_SIZE.width;
+            CGFloat headHeight = _previewLayer.bounds.size.height - squareLength;//_previewLayer的frame是(0, 44, 320, 320 + 44)
+            CGSize size = CGSizeMake(squareLength * 2, squareLength * 2);
+            UIImage *scaledImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill bounds:size interpolationQuality:kCGInterpolationHigh];
+
+            CGRect cropFrame = CGRectMake((scaledImage.size.width - size.width) / 2, (scaledImage.size.height - size.height) / 2 + headHeight, size.width, size.height);
+            croppedImage = [scaledImage croppedImage:cropFrame];
+        }
+        
         UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
         if (orientation != UIDeviceOrientationPortrait) {
             CGFloat degree = 0;
