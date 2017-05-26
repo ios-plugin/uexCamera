@@ -17,7 +17,8 @@ typedef void(^DidCapturePhotoBlock)(UIImage *stillImage);
 
 typedef NS_ENUM(NSUInteger, uexCameraViewCaptureOptions){
     uexCameraViewCaptureOptionNone = 0,
-    uexCameraViewCaptureOptionUseOriginImage = 1 << 0
+    uexCameraViewCaptureOptionUseOriginImage = 1 << 0,
+    uexCameraViewCaptureOptionSkipPreview = 1 << 1
 };
 @interface CameraCaptureSessionManager : NSObject
 

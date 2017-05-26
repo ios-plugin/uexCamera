@@ -249,9 +249,6 @@
     [actiView startAnimating];
     [self addSubview:actiView];
     [_captureManager takePicture:^(UIImage *stillImage) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            //[SCCommon saveImageToPhotoAlbum:stillImage];//存至本机
-        });
         [actiView stopAnimating];
         [actiView removeFromSuperview];
         actiView = nil;
@@ -266,6 +263,22 @@
         self.cameraPostViewController.uexObj = _uexObj;
         self.cameraPostViewController.quality = self.quality;
         self.cameraPostViewController.isCompress = NO;
+        
+        if(self.captureManager.options & uexCameraViewCaptureOptionSkipPreview){
+            NSString *filePath = [self.cameraPostViewController saveImageWith:stillImage];
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+            [dict setValue:filePath forKey:@"photoPath"];
+            [dict setValue:_address forKey:@"location"];
+            [dict setValue:_address forKey:@"label"];
+            NSString *jsonString = [dict ac_JSONFragment];
+            [_uexObj.webViewEngine callbackWithFunctionKeyPath:@"uexCamera.cbOpenViewCamera" arguments:ACArgsPack(@(0),@(UEX_CALLBACK_DATATYPE_JSON),jsonString)];
+            [self.funcOpenViewCamera executeWithArguments:ACArgsPack(dict)];
+            self.funcOpenViewCamera = nil;
+            
+            [self.cameraPostViewController.delegate closeCameraInCameraPostViewController:self.cameraPostViewController];
+            return;
+        }
+        
         //[EUtility brwView:_meBrwView presentModalViewController:self.cameraPostViewController animated:YES];
         [[self.webViewEngine viewController] presentViewController:self.cameraPostViewController animated:YES completion:nil];
     }];

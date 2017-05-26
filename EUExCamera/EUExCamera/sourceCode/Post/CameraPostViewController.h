@@ -29,4 +29,6 @@
 @property (nonatomic, assign) BOOL isByOpenInternal;
 @property (nonatomic, assign) BOOL isCompress;
 @property(nonatomic,strong)ACJSFunctionRef *funcOpenView;
+
+-(NSString *)saveImageWith:(UIImage *)image;
 @end

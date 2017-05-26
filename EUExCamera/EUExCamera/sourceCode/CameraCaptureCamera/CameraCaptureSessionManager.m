@@ -10,6 +10,7 @@
 #import "UIImage+CameraResize.h"
 #import "CameraCommon.h"
 #import "CameraInternationalization.h"
+#import <Photos/Photos.h>
 @interface CameraCaptureSessionManager ()
 @property (nonatomic, strong) UIView *preview;
 @end
@@ -145,9 +146,13 @@
  */
 - (void)takePicture:(DidCapturePhotoBlock)block {
     AVCaptureConnection *videoConnection = [self findVideoConnection];
+    
     //	UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
     //	AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];
     //    [videoConnection setVideoOrientation:avcaptureOrientation];
+    if(videoConnection.isVideoOrientationSupported){
+        videoConnection.videoOrientation = AVCaptureVideoOrientationPortrait;
+    }
     [videoConnection setVideoScaleAndCropFactor:_scaleNum];
 
     [_stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
@@ -160,7 +165,7 @@
         UIImage *image = [[UIImage alloc] initWithData:imageData];
         UIImage *croppedImage;
         if (self.options & uexCameraViewCaptureOptionUseOriginImage) {
-            croppedImage = image;
+            croppedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill bounds:image.size interpolationQuality:kCGInterpolationHigh];
         } else {
             CGFloat squareLength = SC_APP_SIZE.width;
             CGFloat headHeight = _previewLayer.bounds.size.height - squareLength;//_previewLayer的frame是(0, 44, 320, 320 + 44)
@@ -170,7 +175,6 @@
             CGRect cropFrame = CGRectMake((scaledImage.size.width - size.width) / 2, (scaledImage.size.height - size.height) / 2 + headHeight, size.width, size.height);
             croppedImage = [scaledImage croppedImage:cropFrame];
         }
-        
         UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
         if (orientation != UIDeviceOrientationPortrait) {
             CGFloat degree = 0;
