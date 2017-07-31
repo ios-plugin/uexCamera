@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
-  <plugin uexName="uexCamera" version="3.0.11.1" build="12">
-    <info>11.1: 添加权限检测回调onPermissionDenied</info>
+  <plugin uexName="uexCamera" version="3.0.11.2" build="13">
+    <info>11.2: 取消拍照后对图片的第一次强制压缩</info>
+    <build>11.1: 添加权限检测回调onPermissionDenied</build>
     <build>11: IDE证书更新</build>
     <build>10: 修改removeViewCameraFromWindow接口无效以及自定义相机内存泄漏问题</build>
     <build>9: 修改系统相机第一次拍照保存路径bug</build>

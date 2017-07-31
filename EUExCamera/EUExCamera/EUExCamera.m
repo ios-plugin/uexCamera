@@ -245,10 +245,10 @@
         
 	}
     
-	UIImage * newImage = [EUtility rotateImage:image];
+	UIImage * needSaveImg = [EUtility rotateImage:image];
     
     //压缩
-    UIImage * needSaveImg = [CameraUtility imageByScalingAndCroppingForSize:newImage width:640];
+//    UIImage * needSaveImg = [CameraUtility imageByScalingAndCroppingForSize:newImage width:640];
     
     //压缩比率，0：压缩后的图片最小，1：压缩后的图片最大
     NSData * imageData = nil;
