@@ -13,7 +13,7 @@
 #import "CameraCaptureCamera.h"
 #import "CameraPickerController.h"
 #import "CameraInternationalization.h"
-
+#import "JSON.h"
 
 @class CameraPostViewController;
 
@@ -58,6 +58,49 @@
     [self closeAllCamera];
 }
 
+#pragma mark - 相机权限判断
+- (BOOL)judgeCamera
+{
+    self.isJudgeCamera = NO;
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    switch (authStatus) {
+        case AVAuthorizationStatusNotDetermined://没有询问是否开启照片
+        {
+            //            __weak EUExImage *weakSelf = self;
+            //            //第一次询问用户是否进行授权
+            //            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            //                // CALL YOUR METHOD HERE - as this assumes being called only once from user interacting with permission alert!
+            //                if (status == PHAuthorizationStatusAuthorized) {
+            //                    // Photo enabled code
+            //                    weakSelf.isJudgePic = YES;
+            //                }
+            //                else {
+            //                    // Photo disabled code
+            //                    weakSelf.isJudgePic = NO;
+            //                }
+            //            }];
+            self.isJudgeCamera = YES;
+        }
+            break;
+        case AVAuthorizationStatusRestricted:
+            //未授权，家长限制
+            self.isJudgeCamera = NO;
+            break;
+        case AVAuthorizationStatusDenied:
+            //用户未授权
+            self.isJudgeCamera = NO;
+            break;
+        case AVAuthorizationStatusAuthorized:
+            //用户授权
+            self.isJudgeCamera = YES;
+            break;
+        default:
+            break;
+    }
+    
+    return self.isJudgeCamera;
+}
+
 #pragma mark - CallBack
 
 -(void)uexSuccessWithOpId:(int)inOpId dataType:(int)inDataType data:(NSString *)inData {
@@ -72,6 +115,17 @@
 #pragma mark - open
 
 - (void)open:(NSMutableArray *)inArguments {
+    
+    //相机权限检测
+    BOOL isPicOK = [self judgeCamera];
+    if (!isPicOK) {
+        NSDictionary *dicResult = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"errCode",@"相机打开失败，请在 设置-隐私-相机 中开启权限",@"info", nil];
+        NSString *dataStr = [dicResult JSONFragment];
+        NSString *jsStr = [NSString stringWithFormat:@"if(uexCamera.onPermissionDenied){uexCamera.onPermissionDenied(%@)}",dataStr];
+        //回调给当前网页
+        [EUtility brwView:self.meBrwView evaluateScript:jsStr];
+        return;
+    }
     
     //为避免冲突先关闭其他自定义相机
     [self closeAllCamera];
@@ -191,10 +245,10 @@
         
 	}
     
-	UIImage * newImage = [EUtility rotateImage:image];
+	UIImage * needSaveImg = [EUtility rotateImage:image];
     
     //压缩
-    UIImage * needSaveImg = [CameraUtility imageByScalingAndCroppingForSize:newImage width:640];
+//    UIImage * needSaveImg = [CameraUtility imageByScalingAndCroppingForSize:newImage width:640];
     
     //压缩比率，0：压缩后的图片最小，1：压缩后的图片最大
     NSData * imageData = nil;
@@ -227,6 +281,19 @@
 -(void)openInternal:(NSMutableArray *)inArguments {
     
     NSLog(@"uexCamera==>>openInternal");
+    
+    //相机权限检测
+    BOOL isPicOK = [self judgeCamera];
+    if (!isPicOK) {
+        NSDictionary *dicResult = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"errCode",@"相机打开失败，请在 设置-隐私-相机 中开启权限",@"info", nil];
+        //NSString *dataStr = [dicResult JSONFragment];
+        NSError *error = nil;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dicResult options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *jsStr = [NSString stringWithFormat:@"if(uexCamera.onPermissionDenied){uexCamera.onPermissionDenied(%@)}",[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+        //回调给当前网页
+        [EUtility brwView:self.meBrwView evaluateScript:jsStr];
+        return;
+    }
     
     //为避免冲突先关闭其他自定义相机
     if (_captureCameraView) {
@@ -281,6 +348,19 @@
 - (void)openViewCamera:(NSMutableArray *)array {
     
     NSLog(@"uexCamera==>>openViewCamera");
+    
+    //相机权限检测
+    BOOL isPicOK = [self judgeCamera];
+    if (!isPicOK) {
+        NSDictionary *dicResult = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"errCode",@"相机打开失败，请在 设置-隐私-相机 中开启权限",@"info", nil];
+        //NSString *dataStr = [dicResult JSONFragment];
+        NSError *error = nil;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dicResult options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *jsStr = [NSString stringWithFormat:@"if(uexCamera.onPermissionDenied){uexCamera.onPermissionDenied(%@)}",[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+        //回调给当前网页
+        [EUtility brwView:self.meBrwView evaluateScript:jsStr];
+        return;
+    }
     
     //为避免冲突先关闭其他自定义相机
     [self closeAllCamera];

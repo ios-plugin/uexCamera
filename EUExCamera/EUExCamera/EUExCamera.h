@@ -11,4 +11,6 @@
     
 }
 
+@property(nonatomic,assign)BOOL isJudgeCamera;//是否拥有相机权限
+
 @end
