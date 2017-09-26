@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
-  	<plugin uexName="uexCamera" version="4.0.3" build="3">
-  		<info>3: openViewCamera支持JSON传参</info>
+  	<plugin uexName="uexCamera" version="4.0.4" build="4">
+  		<info>4: 添加权限检测回调onPermissionDenied</info>
+        <build>3: openViewCamera支持JSON传参</build>
   		<build>2: 修复横屏打开展示图片的界面会导致UI错乱的问题</build>
       	<build>1: open接口修改为不对图片尺寸进行压缩</build>
       	<build>0: 相机插件</build>
