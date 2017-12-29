@@ -156,6 +156,7 @@
 }
 -(void)savaImg:(UIImage *)image {
     
+    image = [self normalizedImage:image];
 	//保存到一个指定目录
 	NSError * error;
     NSFileManager * fmanager = [NSFileManager defaultManager];
@@ -185,6 +186,18 @@
         self.funcOpen = nil;
 	}
 }
+
+- (UIImage *)normalizedImage:(UIImage *)image {
+    if (image.imageOrientation == UIImageOrientationUp) return image;
+    
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
+    [image drawInRect:(CGRect){0, 0, image.size}];
+    UIImage *normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return normalizedImage;
+}
+
+
 #pragma mark - openInternal
 -(void)openInternal:(NSMutableArray *)inArguments {
     
